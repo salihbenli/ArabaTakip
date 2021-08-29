@@ -1,0 +1,35 @@
+﻿@model EntityLayer.Concrete.AracIslemleri
+@{
+    ViewBag.Title = "IslemUpdate";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("IslemUpdate", "Aracıslemleri", FormMethod.Post))
+{
+<div class="form-group">
+    <br />
+
+    @Html.Label("Id")
+    @Html.TextBoxFor(x => x.Arac_isId, new { @class = "form-control" })
+    <br />
+    @Html.Label("Araç Plakası")
+    @Html.TextBoxFor(x => x.AracId, new { @readonly = "readonly", @class = "form-control" })
+    <br />
+    @Html.Label("Sigorta İşlemleri")
+    @Html.TextBoxFor(x => x.Sigorta_islemleri, new { @class = "form-control" })
+    <br />
+    @Html.Label("Ceza İşlemleri")
+    @Html.TextBoxFor(x => x.Ceza_islemleri, new { @class = "form-control" })
+    <br />
+    @Html.Label("Kaza İşlemleri")
+    @Html.TextBoxFor(x => x.Kaza_islemleri, new { @class = "form-control" })
+    <br />
+    @Html.Label("Araç Muayeneleri")
+    @Html.TextBoxFor(x => x.Arac_muayeneleri, new { @class = "form-control" })
+    <br />
+    @Html.Label("OGS HGS İşlemleri")
+    @Html.TextBoxFor(x => x.OGS_HGS_giderleri, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info">Güncelle</button>
+</div>
+}

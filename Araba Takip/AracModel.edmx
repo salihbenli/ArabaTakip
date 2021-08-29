@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AracModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AracIslemleris">
+          <Key>
+            <PropertyRef Name="Arac_isId" />
+          </Key>
+          <Property Name="Arac_isId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AracId" Type="int" Nullable="false" />
+          <Property Name="Sigorta_islemleri" Type="nvarchar(max)" />
+          <Property Name="Ceza_islemleri" Type="nvarchar(max)" />
+          <Property Name="Kaza_islemleri" Type="nvarchar(max)" />
+          <Property Name="Arac_muayeneleri" Type="nvarchar(max)" />
+          <Property Name="OGS_HGS_giderleri" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AracTanimlamas">
+          <Key>
+            <PropertyRef Name="AracId" />
+          </Key>
+          <Property Name="AracId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Arac_Plakasi" Type="nvarchar(max)" />
+          <Property Name="Firma_arac_no" Type="nvarchar(max)" />
+          <Property Name="Arac_markasi" Type="nvarchar(max)" />
+          <Property Name="Arac_modeli" Type="nvarchar(max)" />
+          <Property Name="Model_yili" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="BakimOnarims">
+          <Key>
+            <PropertyRef Name="Bakim_Id" />
+          </Key>
+          <Property Name="Bakim_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AracId" Type="int" />
+          <Property Name="Bakim_tarihi" Type="nvarchar(max)" />
+          <Property Name="Bakim_KMsi" Type="nvarchar(max)" />
+          <Property Name="Tutar" Type="nvarchar(max)" />
+          <Property Name="Firma_servis" Type="nvarchar(max)" />
+          <Property Name="Aciklamalar" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SurucuDetays">
+          <Key>
+            <PropertyRef Name="SurucuId" />
+          </Key>
+          <Property Name="SurucuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AracId" Type="int" />
+          <Property Name="Adi" Type="nvarchar(max)" />
+          <Property Name="Soyadi" Type="nvarchar(max)" />
+          <Property Name="Tel" Type="nvarchar(max)" />
+          <Property Name="Adres" Type="nvarchar(max)" />
+          <Property Name="Ehliyet" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Arac">
+          <End Role="AracTanimlamas" Type="Self.AracTanimlamas" Multiplicity="1" />
+          <End Role="AracIslemleris" Type="Self.AracIslemleris" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AracTanimlamas">
+              <PropertyRef Name="AracId" />
+            </Principal>
+            <Dependent Role="AracIslemleris">
+              <PropertyRef Name="AracId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AracTanimlamas_AracTanimlamas">
+          <End Role="AracTanimlamas" Type="Self.AracTanimlamas" Multiplicity="1" />
+          <End Role="AracTanimlamas1" Type="Self.AracTanimlamas" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AracTanimlamas">
+              <PropertyRef Name="AracId" />
+            </Principal>
+            <Dependent Role="AracTanimlamas1">
+              <PropertyRef Name="AracId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BakimOnarims_AracTanimlamas">
+          <End Role="AracTanimlamas" Type="Self.AracTanimlamas" Multiplicity="0..1" />
+          <End Role="BakimOnarims" Type="Self.BakimOnarims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AracTanimlamas">
+              <PropertyRef Name="AracId" />
+            </Principal>
+            <Dependent Role="BakimOnarims">
+              <PropertyRef Name="AracId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurucuDetays_AracTanimlamas">
+          <End Role="AracTanimlamas" Type="Self.AracTanimlamas" Multiplicity="0..1" />
+          <End Role="SurucuDetays" Type="Self.SurucuDetays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AracTanimlamas">
+              <PropertyRef Name="AracId" />
+            </Principal>
+            <Dependent Role="SurucuDetays">
+              <PropertyRef Name="AracId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AracModelStoreContainer">
+          <EntitySet Name="AracIslemleris" EntityType="Self.AracIslemleris" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AracTanimlamas" EntityType="Self.AracTanimlamas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BakimOnarims" EntityType="Self.BakimOnarims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurucuDetays" EntityType="Self.SurucuDetays" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Arac" Association="Self.FK_Arac">
+            <End Role="AracTanimlamas" EntitySet="AracTanimlamas" />
+            <End Role="AracIslemleris" EntitySet="AracIslemleris" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AracTanimlamas_AracTanimlamas" Association="Self.FK_AracTanimlamas_AracTanimlamas">
+            <End Role="AracTanimlamas" EntitySet="AracTanimlamas" />
+            <End Role="AracTanimlamas1" EntitySet="AracTanimlamas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BakimOnarims_AracTanimlamas" Association="Self.FK_BakimOnarims_AracTanimlamas">
+            <End Role="AracTanimlamas" EntitySet="AracTanimlamas" />
+            <End Role="BakimOnarims" EntitySet="BakimOnarims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurucuDetays_AracTanimlamas" Association="Self.FK_SurucuDetays_AracTanimlamas">
+            <End Role="AracTanimlamas" EntitySet="AracTanimlamas" />
+            <End Role="SurucuDetays" EntitySet="SurucuDetays" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AracModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AracIslemleris">
+          <Key>
+            <PropertyRef Name="Arac_isId" />
+          </Key>
+          <Property Name="Arac_isId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AracId" Type="Int32" Nullable="false" />
+          <Property Name="Sigorta_islemleri" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ceza_islemleri" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Kaza_islemleri" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Arac_muayeneleri" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OGS_HGS_giderleri" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AracTanimlamas" Relationship="Self.FK_Arac" FromRole="AracIslemleris" ToRole="AracTanimlamas" />
+        </EntityType>
+        <EntityType Name="AracTanimlamas">
+          <Key>
+            <PropertyRef Name="AracId" />
+          </Key>
+          <Property Name="AracId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Arac_Plakasi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Firma_arac_no" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Arac_markasi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Arac_modeli" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Model_yili" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AracIslemleris" Relationship="Self.FK_Arac" FromRole="AracTanimlamas" ToRole="AracIslemleris" />
+          <NavigationProperty Name="AracTanimlamas1" Relationship="Self.FK_AracTanimlamas_AracTanimlamas" FromRole="AracTanimlamas" ToRole="AracTanimlamas1" />
+          <NavigationProperty Name="AracTanimlamas2" Relationship="Self.FK_AracTanimlamas_AracTanimlamas" FromRole="AracTanimlamas1" ToRole="AracTanimlamas" />
+          <NavigationProperty Name="BakimOnarims" Relationship="Self.FK_BakimOnarims_AracTanimlamas" FromRole="AracTanimlamas" ToRole="BakimOnarims" />
+          <NavigationProperty Name="SurucuDetays" Relationship="Self.FK_SurucuDetays_AracTanimlamas" FromRole="AracTanimlamas" ToRole="SurucuDetays" />
+        </EntityType>
+        <EntityType Name="BakimOnarims">
+          <Key>
+            <PropertyRef Name="Bakim_Id" />
+          </Key>
+          <Property Name="Bakim_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AracId" Type="Int32" />
+          <Property Name="Bakim_tarihi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Bakim_KMsi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tutar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Firma_servis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Aciklamalar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AracTanimlamas" Relationship="Self.FK_BakimOnarims_AracTanimlamas" FromRole="BakimOnarims" ToRole="AracTanimlamas" />
+        </EntityType>
+        <EntityType Name="SurucuDetays">
+          <Key>
+            <PropertyRef Name="SurucuId" />
+          </Key>
+          <Property Name="SurucuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AracId" Type="Int32" />
+          <Property Name="Adi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Soyadi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ehliyet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AracTanimlamas" Relationship="Self.FK_SurucuDetays_AracTanimlamas" FromRole="SurucuDetays" ToRole="AracTanimlamas" />
+        </EntityType>
+        <Association Name="FK_Arac">
+          <End Role="AracTanimlamas" Type="Self.AracTanimlamas" Multiplicity="1" />
+          <End Role="AracIslemleris" Type="Self.AracIslemleris" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AracTanimlamas">
+              <PropertyRef Name="AracId" />
+            </Principal>
+            <Dependent Role="AracIslemleris">
+              <PropertyRef Name="AracId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AracTanimlamas_AracTanimlamas">
+          <End Role="AracTanimlamas" Type="Self.AracTanimlamas" Multiplicity="1" />
+          <End Role="AracTanimlamas1" Type="Self.AracTanimlamas" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AracTanimlamas">
+              <PropertyRef Name="AracId" />
+            </Principal>
+            <Dependent Role="AracTanimlamas1">
+              <PropertyRef Name="AracId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BakimOnarims_AracTanimlamas">
+          <End Role="AracTanimlamas" Type="Self.AracTanimlamas" Multiplicity="0..1" />
+          <End Role="BakimOnarims" Type="Self.BakimOnarims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AracTanimlamas">
+              <PropertyRef Name="AracId" />
+            </Principal>
+            <Dependent Role="BakimOnarims">
+              <PropertyRef Name="AracId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurucuDetays_AracTanimlamas">
+          <End Role="AracTanimlamas" Type="Self.AracTanimlamas" Multiplicity="0..1" />
+          <End Role="SurucuDetays" Type="Self.SurucuDetays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AracTanimlamas">
+              <PropertyRef Name="AracId" />
+            </Principal>
+            <Dependent Role="SurucuDetays">
+              <PropertyRef Name="AracId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AracEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AracIslemleris" EntityType="Self.AracIslemleris" />
+          <EntitySet Name="AracTanimlamas" EntityType="Self.AracTanimlamas" />
+          <EntitySet Name="BakimOnarims" EntityType="Self.BakimOnarims" />
+          <EntitySet Name="SurucuDetays" EntityType="Self.SurucuDetays" />
+          <AssociationSet Name="FK_Arac" Association="Self.FK_Arac">
+            <End Role="AracTanimlamas" EntitySet="AracTanimlamas" />
+            <End Role="AracIslemleris" EntitySet="AracIslemleris" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AracTanimlamas_AracTanimlamas" Association="Self.FK_AracTanimlamas_AracTanimlamas">
+            <End Role="AracTanimlamas" EntitySet="AracTanimlamas" />
+            <End Role="AracTanimlamas1" EntitySet="AracTanimlamas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BakimOnarims_AracTanimlamas" Association="Self.FK_BakimOnarims_AracTanimlamas">
+            <End Role="AracTanimlamas" EntitySet="AracTanimlamas" />
+            <End Role="BakimOnarims" EntitySet="BakimOnarims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurucuDetays_AracTanimlamas" Association="Self.FK_SurucuDetays_AracTanimlamas">
+            <End Role="AracTanimlamas" EntitySet="AracTanimlamas" />
+            <End Role="SurucuDetays" EntitySet="SurucuDetays" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AracModelStoreContainer" CdmEntityContainer="AracEntities">
+          <EntitySetMapping Name="AracIslemleris">
+            <EntityTypeMapping TypeName="AracModel.AracIslemleris">
+              <MappingFragment StoreEntitySet="AracIslemleris">
+                <ScalarProperty Name="Arac_isId" ColumnName="Arac_isId" />
+                <ScalarProperty Name="AracId" ColumnName="AracId" />
+                <ScalarProperty Name="Sigorta_islemleri" ColumnName="Sigorta_islemleri" />
+                <ScalarProperty Name="Ceza_islemleri" ColumnName="Ceza_islemleri" />
+                <ScalarProperty Name="Kaza_islemleri" ColumnName="Kaza_islemleri" />
+                <ScalarProperty Name="Arac_muayeneleri" ColumnName="Arac_muayeneleri" />
+                <ScalarProperty Name="OGS_HGS_giderleri" ColumnName="OGS_HGS_giderleri" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AracTanimlamas">
+            <EntityTypeMapping TypeName="AracModel.AracTanimlamas">
+              <MappingFragment StoreEntitySet="AracTanimlamas">
+                <ScalarProperty Name="AracId" ColumnName="AracId" />
+                <ScalarProperty Name="Arac_Plakasi" ColumnName="Arac_Plakasi" />
+                <ScalarProperty Name="Firma_arac_no" ColumnName="Firma_arac_no" />
+                <ScalarProperty Name="Arac_markasi" ColumnName="Arac_markasi" />
+                <ScalarProperty Name="Arac_modeli" ColumnName="Arac_modeli" />
+                <ScalarProperty Name="Model_yili" ColumnName="Model_yili" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BakimOnarims">
+            <EntityTypeMapping TypeName="AracModel.BakimOnarims">
+              <MappingFragment StoreEntitySet="BakimOnarims">
+                <ScalarProperty Name="Bakim_Id" ColumnName="Bakim_Id" />
+                <ScalarProperty Name="AracId" ColumnName="AracId" />
+                <ScalarProperty Name="Bakim_tarihi" ColumnName="Bakim_tarihi" />
+                <ScalarProperty Name="Bakim_KMsi" ColumnName="Bakim_KMsi" />
+                <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+                <ScalarProperty Name="Firma_servis" ColumnName="Firma_servis" />
+                <ScalarProperty Name="Aciklamalar" ColumnName="Aciklamalar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SurucuDetays">
+            <EntityTypeMapping TypeName="AracModel.SurucuDetays">
+              <MappingFragment StoreEntitySet="SurucuDetays">
+                <ScalarProperty Name="SurucuId" ColumnName="SurucuId" />
+                <ScalarProperty Name="AracId" ColumnName="AracId" />
+                <ScalarProperty Name="Adi" ColumnName="Adi" />
+                <ScalarProperty Name="Soyadi" ColumnName="Soyadi" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Ehliyet" ColumnName="Ehliyet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

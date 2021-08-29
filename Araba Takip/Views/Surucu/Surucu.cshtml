@@ -1,0 +1,79 @@
+﻿@using EntityLayer.Concrete
+@model List<SurucuDetay>
+@{
+    ViewBag.Title = "Surucu";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+
+
+<!DOCTYPE html>
+<html lang="en">
+<body class="hold-transition sidebar-mini">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div class="wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Sürücüler</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <!-- Default box -->
+            <div class="card card-solid">
+                <div class="card-body pb-0">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch flex-column">
+                                <div class="card bg-light d-flex flex-fill">
+                                    <div class="card-body pt-0">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <h2 class="lead"><b>Sürücü ID @item.SurucuId</b></h2>
+                                                <h2 class="lead"><b>@item.Adi @item.Soyadi</b></h2>
+                                                <p class="text-muted text-sm"><b>Plaka: </b>@item.AracTanimlama.Arac_Plakasi </p>
+                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: @item.Adres</li>
+                                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone : @item.Tel</li>
+                                                    <li class="small"><span class="fa-li"><i class="fa fa-drivers-license-o" style="font-size:20px"></i></span> Drive License : @item.Ehliyet</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-5 text-center">
+                                                <img src="~/AdminLTE-master/dist/img/user1-128x128.jpg" alt="user-avatar" class="img-circle img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="text-right">
+                                            <a href="/Surucu/SurucuDelete/@item.SurucuId" class="btn btn-sm bg-teal">
+                                                Sil
+                                                <i class="fas fa-comments"></i>
+                                            </a>
+                                            <a href="/Surucu/SurucuUpdate/@item.SurucuId" class="btn btn-sm btn-primary">
+                                                Güncelle
+                                                <i class="fas fa-user"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <a href="/Surucu/SurucuEkle/" class="btn btn-primary">Sürücü Ekle</a>
+        </section>
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 3.1.0
+            </div>
+            <strong>Copyright &copy;2021-2021 Salih BENLİ</strong> All rights reserved.
+        </footer>
+    </div>
+</body>
+</html>

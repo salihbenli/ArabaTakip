@@ -1,0 +1,58 @@
+﻿@using EntityLayer.Concrete
+@model List<AracTanimlama>
+@{
+    ViewBag.Title = "Aractanimla";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<html>
+<head>
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+</head>
+<body>
+    <br />
+    <h2>Araç Tanımlama</h2>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <table id="example" class="table table-striped" style="width:100%">
+
+        <thead>
+            <tr>
+                <th>Araç ID</th>
+                <th>Arac Plakası</th>
+                <th>Fİrma Araç No</th>
+                <th>Araç Markası</th>
+                <th>Araç Modeli</th>
+                <th>Model Yılı</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>@item.AracId</th>
+                    <td>@item.Arac_Plakasi</td>
+                    <td>@item.Firma_arac_no</td>
+                    <td>@item.Arac_markasi</td>
+                    <td>@item.Arac_modeli</td>
+                    <td>@item.Model_yili</td>
+                    <td><a href="/Aractanimlama/IslemDelete/@item.AracId" class="btn btn-danger">Sil</a></td>
+                    <td><a href="/Aractanimlama/IslemUpdate/@item.AracId" class="btn btn-success">Güncelle</a></td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <a href="/Aractanimlama/IslemEkle/" class="btn btn-primary">İşlem Ekle</a>
+</body>
+</html>

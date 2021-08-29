@@ -1,0 +1,91 @@
+﻿@using EntityLayer.Concrete
+@model List<AracIslemleri>
+@{
+    ViewBag.Title = "AracIslemleri";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Content/sweetalert.min.js"></script>
+<link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<html>
+<head>
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+</head>
+<body>
+    <br />
+    <h2>Araç İşlemleri</h2>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+
+                <th>Araç  Plakası</th>
+                <th>Sigorta İşlemleri</th>
+                <th>Ceza İşlemleri</th>
+                <th>Kaza İşlemleri</th>
+                <th>Araç Muayeneleri</th>
+                <th>OGS HGS İşlemleri</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <th>@item.AracTanimlama.Arac_Plakasi</th>
+                    <td>@item.Sigorta_islemleri</td>
+                    <td>@item.Ceza_islemleri</td>
+                    <td>@item.Kaza_islemleri</td>
+                    <td>@item.Arac_muayeneleri</td>
+                    <td>@item.OGS_HGS_giderleri</td>
+                    <td><button class="btn btn-danger" onclick="deletee(@item.Arac_isId)">Sil</button></td>
+                    <td><a href="/Aracıslemleri/IslemUpdate/@item.Arac_isId" class="btn btn-success">Güncelle</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="/Aracıslemleri/IslemEkle/" class="btn btn-primary">İşlem Ekle</a>
+</body>
+</html>
+<script>
+    function deletee(id) {
+        swal({
+            title: "Are you sure?" + id,
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+
+                if (willDelete) {
+                    $.ajax{
+                        url: "../AracIslemleri/IslemDelete/",
+                            type: 'POST',
+                            data: { id: id },
+                        datatype:'Json',
+                        swal("Poof! Your imaginary file has been deleted!", {
+                            icon: "success",
+
+                        });
+                    }
+                } else {
+                    swal("Your imaginary file is safe!");
+                };
+
+
+            });
+    }
+</script>
+
+@*<a href="/Aracıslemleri/IslemDelete/@item.Arac_isId"*@

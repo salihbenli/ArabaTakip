@@ -1,0 +1,157 @@
+﻿@using EntityLayer.Concrete
+@model List<BakimOnarim>
+@{
+    ViewBag.Title = "Bakim";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+
+<html>
+<head>
+
+
+</head>
+<body>
+    <br />
+    <h2>Bakım ve Onarım</h2>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <table id="tblBakim" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Bakım ID</th>
+                <th>Arac Plakası</th>
+                <th>Bakım Tarihi</th>
+                <th>Bakım KMsi</th>
+                <th>Tutar</th>
+                <th>Firma Servis</th>
+                <th>Açıklamalar</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>@item.Bakim_Id</th>
+                    <th>@item.AracTanimlama.Arac_Plakasi</th>
+                    <td>@item.Bakim_tarihi</td>
+                    <td>@item.Bakim_KMsi</td>
+                    <td>@item.Tutar</td>
+                    <td>@item.Firma_servis</td>
+                    <td>@item.Aciklamalar</td>
+                    <td><a href="/Bakimonarim/BakimDelete/@item.Bakim_Id" class="btn btn-danger">Sil</a></td>
+                    <td><a href="/Bakimonarim/BakimUpdate/@item.Bakim_Id" class="btn btn-success">Güncelle</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="/Bakimonarim/BakimEkle/" class="btn btn-primary">Bakım Ekle</a>
+
+    <!-- Button trigger modal -->
+    <button id="deneme" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="myFunction()">
+        Bakım Ekle
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bakım Ekle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="example" class="table table-striped" style="width:100%">
+                        <tr>
+                            <td>Arac Plakası</td>
+                            <td><input type="text" id="txtPlaka" /></td>
+                        </tr>
+                        <tr>
+                            <td>Bakım Tarihi</td>
+                            <td><input type="text" id="txtTarih" /></td>
+                        </tr>
+                        <tr>
+                            <td>Bakım KMsi</td>
+                            <td><input type="text" id="txtKm" /></td>
+                        </tr>
+                        <tr>
+                            <td>Tutar</td>
+                            <td><input type="text" id="txtTutar" /></td>
+                        </tr>
+                        <tr>
+                            <td>Firma Servis</td>
+                            <td><input type="text" id="txtServis" /></td>
+                        </tr>
+                        <tr>
+                            <td>Açıklamalar</td>
+                            <td><input type="text" id="txtAciklama" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnInsert" onclick="SaveBakim()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+<script>
+    //$(document).ready(function () {
+    //    $('#example').DataTable();
+    //});
+    function SaveBakim() {
+
+        var stoks = {
+            Arac_Plakasi: $('#txtPlaka').val(),
+            Bakim_tarihi: $('#txtTarih').val(),
+            Bakim_KMsi: $('#txtKm').val(),
+            Tutar: $('#txtTutar').val(),
+            Firma_servis: $('#txtServis').val(),
+            Aciklamalar: $('#txtAciklama').val()
+        };
+        console.log(stoks);
+        var jsonData = JSON.stringify({
+            stoks: stoks
+        });
+       
+        $.ajax({
+            type: "POST",
+            url: '../Bakimonarim/BakimEkle',
+            dataType: "json",
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $('#txtPlaka').val("");
+                $('#txtTarih').val("");
+                $('#txtKm').val("");
+                $('#txtTutar').val("");
+                $('#txtServis').val("");
+                $('#txtAciklama').val("");
+            },
+            error: function () {
+                alert("Eksik bilgi")
+            }
+
+        });
+    }
+
+    function myFunction() {
+
+        document.getElementById("exampleModalLabel").textContent = "butona tıklandı";
+
+
+    }
+
+
+
+</script>

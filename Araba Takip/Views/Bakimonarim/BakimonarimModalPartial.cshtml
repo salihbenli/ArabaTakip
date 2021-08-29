@@ -1,0 +1,41 @@
+﻿@using EntityLayer.Concrete
+@model BakimOnarim
+
+
+<div class="modal fade" id="addBakim">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div> 
+            <form action="Create">
+                <div class="form-group">
+                    <br />
+                    @Html.Label("Bakım ID")
+                    @Html.TextBoxFor(x => x.Bakim_Id, new { @class = "form-control" })
+                    <br />
+                    @Html.Label("Araç Plakası")
+                    @Html.TextBoxFor(x => x.AracId, new { @readonly = "readonly", @class = "form-control" })
+                    <br />
+                    @Html.Label("Bakım Tarihi ")
+                    @Html.TextBoxFor(x => x.Bakim_tarihi, new { @class = "form-control" })
+                    <br />
+                    @Html.Label("Bakım KMsi")
+                    @Html.TextBoxFor(x => x.Bakim_KMsi, new { @class = "form-control" })
+                    <br />
+                    @Html.Label("Tutar")
+                    @Html.TextBoxFor(x => x.Tutar, new { @class = "form-control" })
+                    <br />
+                    @Html.Label("Firma Servis")
+                    @Html.TextBoxFor(x => x.Firma_servis, new { @class = "form-control" })
+                    <br />
+                    @Html.Label("Açıklamalar")
+                    @Html.TextBoxFor(x => x.Aciklamalar, new { @class = "form-control" })
+                    <br />
+                    <button class="btn btn-info">Güncelle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

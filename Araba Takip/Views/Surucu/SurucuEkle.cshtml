@@ -1,0 +1,29 @@
+﻿@model EntityLayer.Concrete.SurucuDetay
+@{
+    ViewBag.Title = "IslemEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using (Html.BeginForm("SurucuEkle", "Surucu", FormMethod.Post))
+{
+<div class="form-group">
+    @Html.Label("Araç Plakası")
+    @Html.DropDownListFor(x => x.AracId, (List<SelectListItem>)ViewBag.vlc, new { @class = "form-control" })
+    <br />
+    @Html.Label("Adı")
+    @Html.TextBoxFor(x => x.Adi, new { @class = "form-control" })
+    <br />
+    @Html.Label("Soyadı")
+    @Html.TextBoxFor(x => x.Soyadi, new { @class = "form-control" })
+    <br />
+    @Html.Label("Tel")
+    @Html.TextBoxFor(x => x.Tel, new { @class = "form-control" })
+    <br />
+    @Html.Label("Adresi")
+    @Html.TextBoxFor(x => x.Adres, new { @class = "form-control" })
+    <br />
+    @Html.Label("Ehliyet Sınıfı")
+    @Html.TextBoxFor(x => x.Ehliyet, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info">Kaydet</button>
+</div>
+}

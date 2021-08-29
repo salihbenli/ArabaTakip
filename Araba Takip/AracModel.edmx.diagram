@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8c8a99f422c84855a7f0dda7651d0a9a" Name="Diagram1">
+        <EntityTypeShape EntityType="AracModel.AracIslemleris" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AracModel.AracTanimlamas" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AracModel.BakimOnarims" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AracModel.SurucuDetays" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="AracModel.FK_Arac" ManuallyRouted="false" />
+        <AssociationConnector Association="AracModel.FK_AracTanimlamas_AracTanimlamas" ManuallyRouted="false" />
+        <AssociationConnector Association="AracModel.FK_BakimOnarims_AracTanimlamas" ManuallyRouted="false" />
+        <AssociationConnector Association="AracModel.FK_SurucuDetays_AracTanimlamas" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

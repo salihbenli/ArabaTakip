@@ -1,0 +1,31 @@
+﻿@model EntityLayer.Concrete.AracTanimlama
+@{
+    ViewBag.Title = "IslemUpdate";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("IslemUpdate", "Aractanimlama", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Araç Id")
+        @Html.TextBoxFor(x => x.AracId, new { @class = "form-control" })
+        <br />
+        @Html.Label("Araç Plakası")
+        @Html.TextBoxFor(x => x.Arac_Plakasi, new { @class = "form-control" })
+        <br />
+        @Html.Label("Firma Araç No")
+        @Html.TextBoxFor(x => x.Firma_arac_no, new { @class = "form-control" })
+        <br />
+        @Html.Label("Araç Markası")
+        @Html.TextBoxFor(x => x.Arac_markasi, new { @class = "form-control" })
+        <br />
+        @Html.Label("Araç Modeli")
+        @Html.TextBoxFor(x => x.Arac_modeli, new { @class = "form-control" })
+        <br />
+        @Html.Label("Araç Model Yılı")
+        @Html.TextBoxFor(x => x.Model_yili, new { @class = "form-control" })
+        <br />
+        <button class="btn btn-info">Güncelle</button>
+    </div>
+}
+
